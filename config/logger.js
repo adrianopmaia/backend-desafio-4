@@ -1,5 +1,7 @@
 import winston from 'winston';
 import winstondb from 'winston-mongodb';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const { combine, timestamp, label, printf } = winston.format;
 
@@ -14,7 +16,7 @@ const logger = createLogger({
     new transports.Console(),
     new transports.MongoDB({
       level: 'info',
-      db: process.env.MONGODB,
+      db: `mongodb+srv://${process.env.USER_DB}:${process.env.USER_PASS}@cluster0.m9ih6.mongodb.net/bootcamp?retryWrites=true&w=majority`,
       collection: 'logs_grades',
       capped: true,
       cappedMax: 20,
